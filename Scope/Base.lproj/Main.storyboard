@@ -1,14 +1,19 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Scope" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -16,11 +21,71 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7sk-dN-4Z7" customClass="UIXRangeSlider" customModule="Scope" customModuleProvider="target">
+                                <rect key="frame" x="61" y="546" width="253" height="36"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="6eD-9h-r92"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="sliderChanged" destination="BYZ-38-t0r" eventType="valueChanged" id="5SF-jf-3mY"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gk-0b-8HN">
+                                <rect key="frame" x="36" y="151" width="303" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="lVw-RV-15t"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days to Maturity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KE4-Ix-gBM">
+                                <rect key="frame" x="36" y="120" width="303" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Rcv-of-xND"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBq-0X-DcE">
+                                <rect key="frame" x="36" y="182" width="303" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="02I-RC-jIR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="KE4-Ix-gBM" secondAttribute="trailing" constant="20" id="5SM-z8-sok"/>
+                            <constraint firstItem="iBq-0X-DcE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Fu3-Eg-07s"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="6gk-0b-8HN" secondAttribute="trailing" constant="20" id="GZN-ud-QO1"/>
+                            <constraint firstItem="iBq-0X-DcE" firstAttribute="top" secondItem="6gk-0b-8HN" secondAttribute="bottom" constant="1" id="HeJ-gz-LB4"/>
+                            <constraint firstItem="6gk-0b-8HN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="LSW-4P-dBS"/>
+                            <constraint firstItem="KE4-Ix-gBM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="Mo5-2C-XbW"/>
+                            <constraint firstItem="6gk-0b-8HN" firstAttribute="top" secondItem="KE4-Ix-gBM" secondAttribute="bottom" constant="1" id="Qb9-Z1-hNq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="iBq-0X-DcE" secondAttribute="trailing" constant="20" id="YPz-az-wzV"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7sk-dN-4Z7" secondAttribute="bottom" constant="85" id="YT8-S2-Caq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="7sk-dN-4Z7" secondAttribute="trailing" constant="45" id="lTS-rf-8tM"/>
+                            <constraint firstItem="KE4-Ix-gBM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="loc-5d-IiC"/>
+                            <constraint firstItem="7sk-dN-4Z7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="45" id="uGr-qp-lzw"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="daysToMaturityLbl" destination="KE4-Ix-gBM" id="0eX-oU-Rw1"/>
+                        <outlet property="maxTempOneLbl" destination="iBq-0X-DcE" id="mys-u3-hZ2"/>
+                        <outlet property="minTempOneLbl" destination="6gk-0b-8HN" id="KHI-gb-p65"/>
+                        <outlet property="slider2" destination="7sk-dN-4Z7" id="WvK-WZ-HFQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="116" y="122.78860569715144"/>
         </scene>
     </scenes>
 </document>
