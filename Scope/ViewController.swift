@@ -29,55 +29,22 @@ class ViewController: UIViewController {
         
         if mainTempArray != nil {
             
-            if (self.slider2.rightValue <= self.findEarlyHarvestDate(ddArray: self.ddArray)) {
-                self.slider2.rightValue = self.findEarlyHarvestDate(ddArray: self.ddArray)
-            }
-            
-            slider2.leftValue = findDaysToMaturity(ddArray: ddArray, start: slider2.rightValue)
+            updateSliderPoints()
         }
         
-        dateFormatter.dateFormat = "MMMM d"
         
-        if let result = dateReference[Int(slider2.leftValue)] {
-        let convertedDate = dateFormatter.string(from: result)
-        minTempOneLbl.text = "Planting Date: " + convertedDate
-        }
-        if let result = dateReference[Int(slider2.rightValue)] {
-            let convertedDate = dateFormatter.string(from: result)
-            maxTempOneLbl.text = "Harvest Date: " + convertedDate
-        }
+        updateLbls()
+      
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dateFormatter.dateFormat = "MMMM d"
-        
-        if let result = dateReference[Int(slider2.leftValue)] {
-            let convertedDate = dateFormatter.string(from: result)
-            minTempOneLbl.text = "Planting Date: " + convertedDate
-        }
-        if let result = dateReference[Int(slider2.rightValue)] {
-            let convertedDate = dateFormatter.string(from: result)
-            maxTempOneLbl.text = "Harvest Date: " + convertedDate
-        }
-        
-        if mainTempArray == nil {
-            APIManager.sharedInstance.fetchTemp() { result in
-                mainTempArray = result
-                self.ddArray = self.calculateDegreeDays(result: mainTempArray!)
-                self.slider2.leftValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.rightValue)
-                if (self.slider2.rightValue <= self.findEarlyHarvestDate(ddArray: self.ddArray)) {
-                    self.slider2.rightValue = self.findEarlyHarvestDate(ddArray: self.ddArray)
-                }
-            }
-        }
-        
+        updateLbls()
+        getNormals()
         
     }
-    
- 
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -102,13 +69,13 @@ class ViewController: UIViewController {
         accumulatedDays += ddArray[i]
             
         i -= 1
-            
+            print(i)
         }
-        daysToMaturityLbl.text = "Days to Maturity: " + String(i)
-        return start - Float(i)
+        
+        return Float(i)
     }
     
-    func findLastPlantingDate(ddArray: [Float]) -> Float {
+   /* func findLastPlantingDate(ddArray: [Float]) -> Float {
     
         var i: Int = 364
     
@@ -123,7 +90,7 @@ class ViewController: UIViewController {
     
         }
         return Float(i)
-    }
+    }*/
     
     func findEarlyHarvestDate(ddArray: [Float]) -> Float {
         
@@ -139,8 +106,46 @@ class ViewController: UIViewController {
             i += 1
             
         }
-        return Float(i+2)
+        return Float(i)
 
+    }
+    
+    func updateLbls() {
+        dateFormatter.dateFormat = "MMMM d"
+        
+        if let result = dateReference[Int(slider2.leftValue)] {
+            let convertedDate = dateFormatter.string(from: result)
+            minTempOneLbl.text = "Planting Date: " + convertedDate
+        }
+        if let result = dateReference[Int(slider2.rightValue)] {
+            let convertedDate = dateFormatter.string(from: result)
+            maxTempOneLbl.text = "Harvest Date: " + convertedDate
+        }
+        
+        daysToMaturityLbl.text = "Days to Maturity: " + String(Int(slider2.rightValue - slider2.leftValue))
+    }
+    
+    func updateSliderPoints() {
+        
+        if (self.slider2.rightValue <= self.findEarlyHarvestDate(ddArray: self.ddArray)) {
+            self.slider2.rightValue = self.findEarlyHarvestDate(ddArray: self.ddArray)
+        }
+        
+        self.slider2.leftValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.rightValue)
+
+    }
+    
+    func getNormals() {
+        
+        if mainTempArray == nil {
+            APIManager.sharedInstance.fetchTemp() { result in
+                mainTempArray = result
+                self.ddArray = self.calculateDegreeDays(result: mainTempArray!)
+                print(self.ddArray.reduce(0,+))
+                self.updateLbls()
+                self.updateSliderPoints()
+            }
+        }
     }
     
 }
