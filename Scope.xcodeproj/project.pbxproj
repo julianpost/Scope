@@ -20,6 +20,7 @@
 		E847E12F1E268B8200337EE3 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847E12A1E268B8200337EE3 /* APIManager.swift */; };
 		E847E1301E268B8200337EE3 /* ArrayCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847E12B1E268B8200337EE3 /* ArrayCalculations.swift */; };
 		E847E1351E268FCE00337EE3 /* CropCharacteristics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847E1341E268FCE00337EE3 /* CropCharacteristics.swift */; };
+		E856E6141E2D9E1B00AA7618 /* NOAAStationFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E856E6131E2D9E1B00AA7618 /* NOAAStationFile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		E847E12A1E268B8200337EE3 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		E847E12B1E268B8200337EE3 /* ArrayCalculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayCalculations.swift; sourceTree = "<group>"; };
 		E847E1341E268FCE00337EE3 /* CropCharacteristics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropCharacteristics.swift; sourceTree = "<group>"; };
+		E856E6131E2D9E1B00AA7618 /* NOAAStationFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NOAAStationFile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				E847E12B1E268B8200337EE3 /* ArrayCalculations.swift */,
 				E847E1291E268B8200337EE3 /* DateHandler.swift */,
 				E847E1281E268B8200337EE3 /* NOAATempArrays.swift */,
+				E856E6131E2D9E1B00AA7618 /* NOAAStationFile.swift */,
 				E847E1251E268AF100337EE3 /* SliderDosThumbs.swift */,
 				E847E1341E268FCE00337EE3 /* CropCharacteristics.swift */,
 			);
@@ -266,6 +269,7 @@
 				E847E1141E267B1600337EE3 /* AppDelegate.swift in Sources */,
 				E847E12C1E268B8200337EE3 /* NOAARouter.swift in Sources */,
 				E847E12F1E268B8200337EE3 /* APIManager.swift in Sources */,
+				E856E6141E2D9E1B00AA7618 /* NOAAStationFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
