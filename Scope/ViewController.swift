@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var maxTempOneLbl: UILabel!
     @IBOutlet weak var daysToMaturityLbl: UILabel!
     
+    @IBOutlet weak var loadingView: UIView!
     @IBOutlet var slider2: UIXRangeSlider!
     
     var sliderCharacteristics = CharacteristicsOf()
@@ -41,6 +42,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        slider2.layer.isHidden = true
         updateLbls()
         getNormals()
         
@@ -144,6 +146,8 @@ class ViewController: UIViewController {
                 print(self.ddArray.reduce(0,+))
                 self.updateLbls()
                 self.updateSliderPoints()
+                self.slider2.layer.isHidden = false
+                self.loadingView.layer.isHidden = true
             }
         }
     }

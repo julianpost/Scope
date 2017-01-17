@@ -59,9 +59,31 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZK8-aa-FN1">
+                                <rect key="frame" x="67" y="502" width="240" height="36"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading weather data ~ ~ ~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RqI-dh-oMN">
+                                        <rect key="frame" x="94" y="7" width="54" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="F58-vZ-vED"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="RqI-dh-oMN" firstAttribute="centerY" secondItem="ZK8-aa-FN1" secondAttribute="centerY" id="L8m-6Y-peb"/>
+                                    <constraint firstItem="RqI-dh-oMN" firstAttribute="centerX" secondItem="ZK8-aa-FN1" secondAttribute="centerX" id="WSM-DD-zHQ"/>
+                                    <constraint firstAttribute="height" constant="36" id="e3J-y5-fuf"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZK8-aa-FN1" secondAttribute="trailing" constant="52" id="0aV-RJ-hRG"/>
+                            <constraint firstItem="ZK8-aa-FN1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="3vk-Fo-nVO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KE4-Ix-gBM" secondAttribute="trailing" constant="20" id="5SM-z8-sok"/>
                             <constraint firstItem="iBq-0X-DcE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Fu3-Eg-07s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6gk-0b-8HN" secondAttribute="trailing" constant="20" id="GZN-ud-QO1"/>
@@ -71,6 +93,7 @@
                             <constraint firstItem="6gk-0b-8HN" firstAttribute="top" secondItem="KE4-Ix-gBM" secondAttribute="bottom" constant="1" id="Qb9-Z1-hNq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iBq-0X-DcE" secondAttribute="trailing" constant="20" id="YPz-az-wzV"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7sk-dN-4Z7" secondAttribute="bottom" constant="85" id="YT8-S2-Caq"/>
+                            <constraint firstItem="7sk-dN-4Z7" firstAttribute="top" secondItem="ZK8-aa-FN1" secondAttribute="bottom" constant="8" id="kdj-HU-5FS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="7sk-dN-4Z7" secondAttribute="trailing" constant="45" id="lTS-rf-8tM"/>
                             <constraint firstItem="KE4-Ix-gBM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="loc-5d-IiC"/>
                             <constraint firstItem="7sk-dN-4Z7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="45" id="uGr-qp-lzw"/>
@@ -78,6 +101,7 @@
                     </view>
                     <connections>
                         <outlet property="daysToMaturityLbl" destination="KE4-Ix-gBM" id="0eX-oU-Rw1"/>
+                        <outlet property="loadingView" destination="ZK8-aa-FN1" id="H9I-Ef-hMh"/>
                         <outlet property="maxTempOneLbl" destination="iBq-0X-DcE" id="mys-u3-hZ2"/>
                         <outlet property="minTempOneLbl" destination="6gk-0b-8HN" id="KHI-gb-p65"/>
                         <outlet property="slider2" destination="7sk-dN-4Z7" id="WvK-WZ-HFQ"/>
