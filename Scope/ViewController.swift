@@ -32,10 +32,7 @@ class ViewController: UIViewController {
             
             updateSliderPoints()
         }
-        
-        
         updateLbls()
-      
     }
     
     
@@ -45,7 +42,6 @@ class ViewController: UIViewController {
         slider2.layer.isHidden = true
         updateLbls()
         getNormals()
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,7 +56,7 @@ class ViewController: UIViewController {
         return ddArray
     }
     
-    func findDaysToMaturity(ddArray: [Float], start: Float) -> Float {
+    func findDaysToMaturity(ddArray: [Float], start: Float, fromLeft: Bool) -> Float {
         
         var i = Int(start)
     
@@ -69,15 +65,21 @@ class ViewController: UIViewController {
         while accumulatedDays < sliderCharacteristics.beets.daysToMaturity {
         
         accumulatedDays += ddArray[i]
+        
+            if fromLeft {
+                i += 1
+            }
             
-        i -= 1
-            print(i)
+            else {
+                i -= 1
+            }
+        //print(i)
         }
         
         return Float(i)
     }
     
-   /* func findLastPlantingDate(ddArray: [Float]) -> Float {
+   func findLastPlantingDate(ddArray: [Float]) -> Float {
     
         var i: Int = 364
     
@@ -92,7 +94,7 @@ class ViewController: UIViewController {
     
         }
         return Float(i)
-    }*/
+    }
     
     func findEarlyHarvestDate(ddArray: [Float]) -> Float {
         
@@ -129,14 +131,39 @@ class ViewController: UIViewController {
     
     func updateSliderPoints() {
         
+        if slider2.trackedElement == UIXRangeSlider.ElementTracked.rightThumb {
+        
         if (self.slider2.rightValue <= self.findEarlyHarvestDate(ddArray: self.ddArray)) {
             self.slider2.rightValue = self.findEarlyHarvestDate(ddArray: self.ddArray)
         }
         
-        self.slider2.leftValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.rightValue)
-
+        self.slider2.leftValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.rightValue, fromLeft: false)
+            
+        }
+        
+        else if slider2.trackedElement == UIXRangeSlider.ElementTracked.leftThumb {
+           
+            if (self.slider2.leftValue >= self.findLastPlantingDate(ddArray: self.ddArray)) {
+                self.slider2.leftValue = self.findLastPlantingDate(ddArray: self.ddArray)
+            }
+            
+            self.slider2.rightValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.leftValue, fromLeft: true)
+            
+            }
     }
     
+    func setUpSliders() {
+        
+        self.slider2.rightValue = self.findEarlyHarvestDate(ddArray: self.ddArray)
+        
+        self.slider2.leftValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.rightValue, fromLeft: false)
+        
+    }
+    
+    
+
+    
+
     func getNormals() {
         
         if mainTempArray == nil {
@@ -144,13 +171,12 @@ class ViewController: UIViewController {
                 mainTempArray = result
                 self.ddArray = self.calculateDegreeDays(result: mainTempArray!)
                 print(self.ddArray.reduce(0,+))
+                self.setUpSliders()
                 self.updateLbls()
-                self.updateSliderPoints()
                 self.slider2.layer.isHidden = false
                 self.loadingView.layer.isHidden = true
             }
         }
     }
-    
 }
 
