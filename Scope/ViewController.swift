@@ -153,20 +153,20 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         dateFormatter.dateFormat = "MMMM d"
         
         let leftDate = DateFunctions.intToDate(int: Int(slider2.leftValue))
-        let convertedLeftDate = dateFormatter.string(from: sliderDate)
-        minTempOneLbl.text = "Planting Date: " + convertedDate
+        let convertedLeftDate = dateFormatter.string(from: leftDate)
+        minTempOneLbl.text = "Planting Date: " + convertedLeftDate
         
         let rightDate = DateFunctions.intToDate(int: Int(slider2.rightValue))
-        let convertedRightDate = dateFormatter.string(from: result)
-        maxTempOneLbl.text = "Harvest Date: " + convertedDate
+        let convertedRightDate = dateFormatter.string(from: rightDate)
+        maxTempOneLbl.text = "Harvest Date: " + convertedRightDate
         
         daysToMaturityLbl.text = "Days to Maturity: " + String(Int(slider2.rightValue - slider2.leftValue))
     }
     
     func updateSliderPoints() {
         
-        var earlyHarvestInt: Float = DateFunctions.dateToInt(date: self.findEarlyHarvestDate())
-        var lastPlantingInt: Float = DateFunctions.dateToInt(date: self.findLastPlantingDate())
+        let earlyHarvestInt: Float = DateFunctions.dateToInt(date: self.findEarlyHarvestDate())
+        let lastPlantingInt: Float = DateFunctions.dateToInt(date: self.findLastPlantingDate())
         
         
         if slider2.trackedElement == UIXRangeSlider.ElementTracked.rightThumb {
@@ -196,9 +196,12 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     func setUpSliders() {
         
-        self.slider2.rightValue = self.findEarlyHarvestDate()
+        let earlyHarvestInt: Float = DateFunctions.dateToInt(date: self.findEarlyHarvestDate())
+        self.slider2.rightValue = earlyHarvestInt
         
-        self.slider2.leftValue = self.findDaysToMaturity(start: self.slider2.rightValue, fromLeft: false)
+        let rightDate = DateFunctions.intToDate(int: Int(self.slider2.rightValue))
+        let leftDate = self.findDaysToMaturity(date: rightDate, fromLeft: false)
+        self.slider2.leftValue = DateFunctions.dateToInt(date: leftDate)
         
     }
     
