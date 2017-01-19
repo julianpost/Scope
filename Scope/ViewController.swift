@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import CoreData
 
-class ViewController: UIViewController {
-
-    //@IBOutlet weak var tempViewOne: UIView!
+class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
+    
+ //var managedObjectContext: NSManagedObjectContext? = nil
+  
     
     @IBOutlet weak var minTempOneLbl: UILabel!
     @IBOutlet weak var maxTempOneLbl: UILabel!
@@ -20,9 +22,9 @@ class ViewController: UIViewController {
     @IBOutlet var slider2: UIXRangeSlider!
     
     var sliderCharacteristics = CharacteristicsOf()
-    var ddArray: [Float] = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
-    
-    let dateReference = DateFunctions.dateReference()
+    var ddArray: [Date:Float] = [:]
+    var normals: [Normal] = []
+    var normalDictionary: [Date:Float] = [:]
     let dateFormatter = DateFormatter()
     
     
@@ -42,6 +44,16 @@ class ViewController: UIViewController {
         slider2.layer.isHidden = true
         updateLbls()
         getNormals()
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext /*self.fetchedResultsController.managedObjectContext*/
+        
+        let weatherRecord = Normal(context: context)
+        weatherRecord.date = NSDate()
+        
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,114 +61,144 @@ class ViewController: UIViewController {
         
     }
     
-    func calculateDegreeDays(result: NOAATempArrays) -> [Float] {
+    func calculateDegreeDays(result: [Normal]) {
         
-        let ddArray = TransformArray.toDegreeDay(sliderCharacteristics.beets.minTemp, maxTemp: sliderCharacteristics.beets.maxTemp, tMin: result.normalYearTemperatureMinArray, tMax: result.normalYearTemperatureMaxArray)
+        let calendar = Calendar.current
+        let date = dateFor.normalYearStart
+        let range = calendar.range(of: .day, in: .year, for: date)!
+        let numDays = range.count
+        let gregorian: Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
+        var start = dateFor.normalYearStart
         
-        return ddArray
+        for i in 0...numDays-1 {
+            
+            ddArray[result[i].date as! Date] = TransformArray.toDegreeDay(sliderCharacteristics.beets.minTemp, maxTemp: sliderCharacteristics.beets.maxTemp, tMin: result[i].tMin, tMax: result[i].tMax)
+            
+            // increment the date by 1 day
+            var dateComponents = DateComponents()
+            dateComponents.day = 1
+            start = gregorian.date(byAdding: dateComponents, to: start)!
+        }
+
+        
     }
     
-    func findDaysToMaturity(ddArray: [Float], start: Float, fromLeft: Bool) -> Float {
+    func findDaysToMaturity(date: Date, fromLeft: Bool) -> Date {
         
-        var i = Int(start)
+        //let calendar = Calendar.current
+        let gregorian: Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
+        var dateComponents = DateComponents()
+        var start = date
     
         var accumulatedDays: Float = 0
         
         while accumulatedDays < sliderCharacteristics.beets.daysToMaturity {
         
-        accumulatedDays += ddArray[i]
+        accumulatedDays += ddArray[start]!
+            
         
             if fromLeft {
-                i += 1
+                dateComponents.day = 1
             }
             
             else {
-                i -= 1
+                dateComponents.day = -1
             }
-        //print(i)
+            
+            start = gregorian.date(byAdding: dateComponents, to: start)!
         }
         
-        return Float(i)
+        return start
     }
     
-   func findLastPlantingDate(ddArray: [Float]) -> Float {
+   func findLastPlantingDate() -> Date {
     
-        var i: Int = 364
+        let gregorian: Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
+        var dateComponents = DateComponents()
+        var start = dateFor.normalYearEnd
     
         var accumulatedDays: Float = 0
         
         while accumulatedDays < sliderCharacteristics.beets.daysToMaturity {
     
-            accumulatedDays += ddArray[i]
+            accumulatedDays += ddArray[start]!
             
-    
-            i -= 1
-    
+            dateComponents.day = -1
+            start = gregorian.date(byAdding: dateComponents, to: start)!
         }
-        return Float(i)
+        return start
     }
     
-    func findEarlyHarvestDate(ddArray: [Float]) -> Float {
+    func findEarlyHarvestDate() -> Date {
         
-        var i: Int = 0
+        let gregorian: Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
+        var dateComponents = DateComponents()
+        var start = dateFor.normalYearStart
         
         var accumulatedDays: Float = 0
         
         while accumulatedDays < sliderCharacteristics.beets.daysToMaturity {
             
-            accumulatedDays += ddArray[i]
+            accumulatedDays += ddArray[start]!
             
+            dateComponents.day = 1
+            start = gregorian.date(byAdding: dateComponents, to: start)!
             
-            i += 1
             
         }
-        return Float(i)
-
+        return start
     }
     
     func updateLbls() {
         dateFormatter.dateFormat = "MMMM d"
         
-        if let result = dateReference[Int(slider2.leftValue)] {
-            let convertedDate = dateFormatter.string(from: result)
-            minTempOneLbl.text = "Planting Date: " + convertedDate
-        }
-        if let result = dateReference[Int(slider2.rightValue)] {
-            let convertedDate = dateFormatter.string(from: result)
-            maxTempOneLbl.text = "Harvest Date: " + convertedDate
-        }
+        let leftDate = DateFunctions.intToDate(int: Int(slider2.leftValue))
+        let convertedLeftDate = dateFormatter.string(from: sliderDate)
+        minTempOneLbl.text = "Planting Date: " + convertedDate
+        
+        let rightDate = DateFunctions.intToDate(int: Int(slider2.rightValue))
+        let convertedRightDate = dateFormatter.string(from: result)
+        maxTempOneLbl.text = "Harvest Date: " + convertedDate
         
         daysToMaturityLbl.text = "Days to Maturity: " + String(Int(slider2.rightValue - slider2.leftValue))
     }
     
     func updateSliderPoints() {
         
+        var earlyHarvestInt: Float = DateFunctions.dateToInt(date: self.findEarlyHarvestDate())
+        var lastPlantingInt: Float = DateFunctions.dateToInt(date: self.findLastPlantingDate())
+        
+        
         if slider2.trackedElement == UIXRangeSlider.ElementTracked.rightThumb {
         
-        if (self.slider2.rightValue <= self.findEarlyHarvestDate(ddArray: self.ddArray)) {
-            self.slider2.rightValue = self.findEarlyHarvestDate(ddArray: self.ddArray)
-        }
-        
-        self.slider2.leftValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.rightValue, fromLeft: false)
+            if self.slider2.rightValue <= earlyHarvestInt {
+            self.slider2.rightValue = earlyHarvestInt
+            }
+            
+            let rightDate = DateFunctions.intToDate(int: Int(self.slider2.rightValue))
+            let leftDate = self.findDaysToMaturity(date: rightDate, fromLeft: false)
+            self.slider2.leftValue = DateFunctions.dateToInt(date: leftDate)
             
         }
         
         else if slider2.trackedElement == UIXRangeSlider.ElementTracked.leftThumb {
            
-            if (self.slider2.leftValue >= self.findLastPlantingDate(ddArray: self.ddArray)) {
-                self.slider2.leftValue = self.findLastPlantingDate(ddArray: self.ddArray)
+            if self.slider2.leftValue >= lastPlantingInt {
+                self.slider2.leftValue = lastPlantingInt
             }
             
-            self.slider2.rightValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.leftValue, fromLeft: true)
+            let leftDate = DateFunctions.intToDate(int: Int(self.slider2.leftValue))
+            let rightDate = self.findDaysToMaturity(date: leftDate, fromLeft: true)
+            self.slider2.rightValue = DateFunctions.dateToInt(date: rightDate)
             
-            }
+        }
     }
     
     func setUpSliders() {
         
-        self.slider2.rightValue = self.findEarlyHarvestDate(ddArray: self.ddArray)
+        self.slider2.rightValue = self.findEarlyHarvestDate()
         
-        self.slider2.leftValue = self.findDaysToMaturity(ddArray: self.ddArray, start: self.slider2.rightValue, fromLeft: false)
+        self.slider2.leftValue = self.findDaysToMaturity(start: self.slider2.rightValue, fromLeft: false)
         
     }
     
@@ -168,9 +210,10 @@ class ViewController: UIViewController {
         
         if mainTempArray == nil {
             APIManager.sharedInstance.fetchTemp() { result in
-                mainTempArray = result
-                self.ddArray = self.calculateDegreeDays(result: mainTempArray!)
-                print(self.ddArray.reduce(0,+))
+                if result {
+                    self.fetchNormals()
+                    self.calculateDegreeDays(result: self.normals)
+                }
                 self.setUpSliders()
                 self.updateLbls()
                 self.slider2.layer.isHidden = false
@@ -178,5 +221,52 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    func fetchNormals() {
+        
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+        do {
+            normals = try context.fetch(Normal.fetchRequest())
+        } catch {
+            print("Save failed")
+        }
+    
+    }
+    
+   /* var fetchedResultsController: NSFetchedResultsController<Normal> {
+        if _fetchedResultsController != nil {
+            return _fetchedResultsController!
+        }
+        
+        let fetchRequest: NSFetchRequest<Normal> = Normal.fetchRequest()
+        
+        // Set the batch size to a suitable number.
+        fetchRequest.fetchBatchSize = 20
+        
+        // Edit the sort key as appropriate.
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        // Edit the section name key path and cache name if appropriate.
+        // nil for section name key path means "no sections".
+        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: nil)
+        aFetchedResultsController.delegate = self
+        _fetchedResultsController = aFetchedResultsController
+        
+        do {
+            try _fetchedResultsController!.performFetch()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nserror = error as NSError
+            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
+        return _fetchedResultsController!
+    }
+    var _fetchedResultsController: NSFetchedResultsController<Normal>? = nil*/
+
 }
 

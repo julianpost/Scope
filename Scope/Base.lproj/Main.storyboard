@@ -24,7 +24,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7sk-dN-4Z7" customClass="UIXRangeSlider" customModule="Scope" customModuleProvider="target">
                                 <rect key="frame" x="61" y="546" width="253" height="36"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.15294117647058825" green="0.49803921568627452" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="6eD-9h-r92"/>
                                 </constraints>
@@ -38,7 +38,7 @@
                                     <constraint firstAttribute="height" constant="30" id="lVw-RV-15t"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Days to Maturity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KE4-Ix-gBM">
@@ -47,7 +47,7 @@
                                     <constraint firstAttribute="height" constant="30" id="Rcv-of-xND"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iBq-0X-DcE">
@@ -56,40 +56,37 @@
                                     <constraint firstAttribute="height" constant="30" id="02I-RC-jIR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZK8-aa-FN1">
-                                <rect key="frame" x="67" y="502" width="240" height="36"/>
+                                <rect key="frame" x="21" y="502" width="333" height="36"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading weather data ~ ~ ~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RqI-dh-oMN">
-                                        <rect key="frame" x="94" y="7" width="54" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="200" id="F58-vZ-vED"/>
-                                        </constraints>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading weather data ~ ~ ~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RqI-dh-oMN">
+                                        <rect key="frame" x="2" y="7" width="329" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.15294117647058825" green="0.49803921568627452" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="RqI-dh-oMN" firstAttribute="centerY" secondItem="ZK8-aa-FN1" secondAttribute="centerY" id="L8m-6Y-peb"/>
-                                    <constraint firstItem="RqI-dh-oMN" firstAttribute="centerX" secondItem="ZK8-aa-FN1" secondAttribute="centerX" id="WSM-DD-zHQ"/>
+                                    <constraint firstItem="RqI-dh-oMN" firstAttribute="leading" secondItem="ZK8-aa-FN1" secondAttribute="leading" constant="2" id="3Z0-wb-8cJ"/>
+                                    <constraint firstItem="RqI-dh-oMN" firstAttribute="centerY" secondItem="ZK8-aa-FN1" secondAttribute="centerY" id="987-rk-K6W"/>
+                                    <constraint firstAttribute="trailing" secondItem="RqI-dh-oMN" secondAttribute="trailing" constant="2" id="dnr-3L-Pwn"/>
                                     <constraint firstAttribute="height" constant="36" id="e3J-y5-fuf"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.15294117647058825" green="0.49803921568627452" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailingMargin" secondItem="ZK8-aa-FN1" secondAttribute="trailing" constant="52" id="0aV-RJ-hRG"/>
-                            <constraint firstItem="ZK8-aa-FN1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="51" id="3vk-Fo-nVO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KE4-Ix-gBM" secondAttribute="trailing" constant="20" id="5SM-z8-sok"/>
                             <constraint firstItem="iBq-0X-DcE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Fu3-Eg-07s"/>
                             <constraint firstAttribute="trailingMargin" secondItem="6gk-0b-8HN" secondAttribute="trailing" constant="20" id="GZN-ud-QO1"/>
                             <constraint firstItem="iBq-0X-DcE" firstAttribute="top" secondItem="6gk-0b-8HN" secondAttribute="bottom" constant="1" id="HeJ-gz-LB4"/>
                             <constraint firstItem="6gk-0b-8HN" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="LSW-4P-dBS"/>
                             <constraint firstItem="KE4-Ix-gBM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="Mo5-2C-XbW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZK8-aa-FN1" secondAttribute="trailing" constant="5" id="My4-mK-jLa"/>
                             <constraint firstItem="6gk-0b-8HN" firstAttribute="top" secondItem="KE4-Ix-gBM" secondAttribute="bottom" constant="1" id="Qb9-Z1-hNq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="iBq-0X-DcE" secondAttribute="trailing" constant="20" id="YPz-az-wzV"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="7sk-dN-4Z7" secondAttribute="bottom" constant="85" id="YT8-S2-Caq"/>
@@ -97,6 +94,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="7sk-dN-4Z7" secondAttribute="trailing" constant="45" id="lTS-rf-8tM"/>
                             <constraint firstItem="KE4-Ix-gBM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="loc-5d-IiC"/>
                             <constraint firstItem="7sk-dN-4Z7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="45" id="uGr-qp-lzw"/>
+                            <constraint firstItem="ZK8-aa-FN1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="5" id="wfj-Pu-xti"/>
                         </constraints>
                     </view>
                     <connections>
@@ -109,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="122.78860569715144"/>
+            <point key="canvasLocation" x="-30" y="149"/>
         </scene>
     </scenes>
 </document>

@@ -268,7 +268,7 @@ class DateFunctions {
         return userCalendar.date(from: todaysDateComponents)!
     }
     
-    static func dateReference() -> [Int:Date] {
+    static func intToDate(int: Int) -> Date {
        
         let userCalendar = Calendar.current
         let today = Calendar.current.startOfDay(for: Date())
@@ -287,8 +287,32 @@ class DateFunctions {
             dictionary[i] = userCalendar.date(from: todaysDateComponents)!
             todaysDateComponents.day! += 1
         }
-        return dictionary
+        return dictionary[int]!
     }
+    
+    static func dateToInt(date: Date) -> Float {
+        
+        let userCalendar = Calendar.current
+        let today = Calendar.current.startOfDay(for: Date())
+        let requestedDateComponents: NSCalendar.Unit = [.year, .month, .day]
+        var todaysDateComponents = (userCalendar as NSCalendar).components(requestedDateComponents, from: today)
+        
+        todaysDateComponents.year = 2010
+        todaysDateComponents.month = 1
+        todaysDateComponents.day = 1
+        
+        //userCalendar.date(from: todaysDateComponents)!
+        
+        var dictionary: [Date:Int] = [:]
+        
+        for i in 0...364 {
+            dictionary[userCalendar.date(from: todaysDateComponents)!] = i
+            todaysDateComponents.day! += 1
+        }
+        return Float(dictionary[date]!)
+    }
+
+
 }
 
 

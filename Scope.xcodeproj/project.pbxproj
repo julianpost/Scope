@@ -21,6 +21,7 @@
 		E847E1301E268B8200337EE3 /* ArrayCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847E12B1E268B8200337EE3 /* ArrayCalculations.swift */; };
 		E847E1351E268FCE00337EE3 /* CropCharacteristics.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847E1341E268FCE00337EE3 /* CropCharacteristics.swift */; };
 		E856E6141E2D9E1B00AA7618 /* NOAAStationFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E856E6131E2D9E1B00AA7618 /* NOAAStationFile.swift */; };
+		E896D7421E2FC4AB008EA40C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E896D7401E2FC4AB008EA40C /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		E847E12B1E268B8200337EE3 /* ArrayCalculations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayCalculations.swift; sourceTree = "<group>"; };
 		E847E1341E268FCE00337EE3 /* CropCharacteristics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CropCharacteristics.swift; sourceTree = "<group>"; };
 		E856E6131E2D9E1B00AA7618 /* NOAAStationFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NOAAStationFile.swift; sourceTree = "<group>"; };
+		E896D7411E2FC4AB008EA40C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 			children = (
 				E847E1171E267B1600337EE3 /* Main.storyboard */,
 				E847E1131E267B1600337EE3 /* AppDelegate.swift */,
+				E896D7401E2FC4AB008EA40C /* Model.xcdatamodeld */,
 				E847E1311E268BD900337EE3 /* View Controllers */,
 				E847E1321E268C0000337EE3 /* Web Requests */,
 				E847E1331E268C2E00337EE3 /* Helpers */,
@@ -269,6 +272,7 @@
 				E847E1141E267B1600337EE3 /* AppDelegate.swift in Sources */,
 				E847E12C1E268B8200337EE3 /* NOAARouter.swift in Sources */,
 				E847E12F1E268B8200337EE3 /* APIManager.swift in Sources */,
+				E896D7421E2FC4AB008EA40C /* Model.xcdatamodeld in Sources */,
 				E856E6141E2D9E1B00AA7618 /* NOAAStationFile.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +440,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E896D7401E2FC4AB008EA40C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E896D7411E2FC4AB008EA40C /* Model.xcdatamodel */,
+			);
+			currentVersion = E896D7411E2FC4AB008EA40C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E847E1081E267B1500337EE3 /* Project object */;
 }
