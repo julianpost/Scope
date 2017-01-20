@@ -43,17 +43,7 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         
         slider2.layer.isHidden = true
         updateLbls()
-        getNormals()
-        
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext /*self.fetchedResultsController.managedObjectContext*/
-        
-        let weatherRecord = Normal(context: context)
-        weatherRecord.date = NSDate()
-        
-        (UIApplication.shared.delegate as! AppDelegate).saveContext()
-        
-        
-
+        getNormalsFromNOAA()
     }
     
     override func didReceiveMemoryWarning() {
@@ -64,16 +54,16 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
     func calculateDegreeDays(result: [Normal]) {
         
         let calendar = Calendar.current
-        let date = dateFor.normalYearStart
-        let range = calendar.range(of: .day, in: .year, for: date)!
-        let numDays = range.count
-        let gregorian: Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
         var start = dateFor.normalYearStart
+        let interval = calendar.dateInterval(of: .year, for: start)!
+        let numDays = calendar.dateComponents([.day], from: interval.start, to: interval.end).day!
+        
+        let gregorian: Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
         
         for i in 0...numDays-1 {
-            
-            ddArray[result[i].date as! Date] = TransformArray.toDegreeDay(sliderCharacteristics.beets.minTemp, maxTemp: sliderCharacteristics.beets.maxTemp, tMin: result[i].tMin, tMax: result[i].tMax)
-            
+            let date = result[i].date as! Date
+            ddArray[date] = TransformArray.toDegreeDay(sliderCharacteristics.beets.minTemp, maxTemp: sliderCharacteristics.beets.maxTemp, tMin: result[i].tMin, tMax: result[i].tMax)
+            print(date)
             // increment the date by 1 day
             var dateComponents = DateComponents()
             dateComponents.day = 1
@@ -204,23 +194,21 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         self.slider2.leftValue = DateFunctions.dateToInt(date: leftDate)
         
     }
-    
-    
 
-    
-
-    func getNormals() {
+    func getNormalsFromNOAA() {
         
         if mainTempArray == nil {
             APIManager.sharedInstance.fetchTemp() { result in
                 if result {
                     self.fetchNormals()
+                    print(self.normals.count)
                     self.calculateDegreeDays(result: self.normals)
+                    
+                    self.setUpSliders()
+                    self.updateLbls()
+                    self.slider2.layer.isHidden = false
+                    self.loadingView.layer.isHidden = true
                 }
-                self.setUpSliders()
-                self.updateLbls()
-                self.slider2.layer.isHidden = false
-                self.loadingView.layer.isHidden = true
             }
         }
     }

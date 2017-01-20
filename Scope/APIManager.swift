@@ -35,45 +35,47 @@ class APIManager {
         func initWeatherData() {
             if normalYearTMaxBool && normalYearTMinBool {
                 
-                    //let dateComponents = DateComponents()
-                    let calendar = Calendar.current
-                    let date = dateFor.normalYearStart
-                    let range = calendar.range(of: .day, in: .year, for: date)!
-                    let numDays = range.count
-                    let gregorian: Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
-                    var start = dateFor.normalYearStart
+                //let dateComponents = DateComponents()
+                let calendar = Calendar.current
+                //let date = dateFor.normalYearStart
+                var start = dateFor.normalYearStart
+                let interval = calendar.dateInterval(of: .year, for: start)!
+                let numDays = calendar.dateComponents([.day], from: interval.start, to: interval.end).day!
+                
+                let gregorian: Calendar! = Calendar(identifier: Calendar.Identifier.gregorian)
+                
                     
-                    for _ in 0...numDays-1 {
+                for _ in 0...numDays-1 {
                         
-                        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+                    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
                         
-                        let weatherRecord = Normal(context: context)
+                    let weatherRecord = Normal(context: context)
                         weatherRecord.date = start as NSDate
                         
-                        if normalYearTMax[start] == nil {
+                    if normalYearTMax[start] == nil {
                             weatherRecord.tMax = 0.0
-                        }
-                        else {
-                            weatherRecord.tMax = normalYearTMax[start]!
-                        }
-                        
-                        if normalYearTMin[start] == nil {
-                            weatherRecord.tMin = 0.0
-                        }
-                        else {
-                            weatherRecord.tMin = normalYearTMin[start]!
-                        }
-                        
-                        (UIApplication.shared.delegate as! AppDelegate).saveContext()
-                        
-                        // increment the date by 1 day
-                        var dateComponents = DateComponents()
-                        dateComponents.day = 1
-                        start = gregorian.date(byAdding: dateComponents, to: start)!
                     }
-                completionHandler(true)
-            }
+                    else {
+                        weatherRecord.tMax = normalYearTMax[start]!
+                    }
+                        
+                    if normalYearTMin[start] == nil {
+                        weatherRecord.tMin = 0.0
+                    }
+                    else {
+                        weatherRecord.tMin = normalYearTMin[start]!
+                    }
+                    
+                    (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                        
+                    // increment the date by 1 day
+                    var dateComponents = DateComponents()
+                    dateComponents.day = 1
+                    start = gregorian.date(byAdding: dateComponents, to: start)!
+                }
+            completionHandler(true)
         }
+    }
         
         
         Alamofire.request(NOAARouter.getNormalYearTMax())
