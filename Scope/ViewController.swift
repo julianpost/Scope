@@ -27,13 +27,12 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
     var normalDictionary: [Date:Float] = [:]
     let dateFormatter = DateFormatter()
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     
     @IBAction func sliderChanged() {
         
-        if mainTempArray != nil {
-            
-            updateSliderPoints()
-        }
+        updateSliderPoints()
         updateLbls()
     }
     
@@ -43,7 +42,14 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         
         slider2.layer.isHidden = true
         updateLbls()
-        getNormalsFromNOAA()
+        
+        if recordsOfCurrentStationExist() {
+        setEverythingUp()
+        }
+        else {
+            getNormalsFromNOAA()
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -63,7 +69,7 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         for i in 0...numDays-1 {
             let date = result[i].date as! Date
             ddArray[date] = TransformArray.toDegreeDay(sliderCharacteristics.beets.minTemp, maxTemp: sliderCharacteristics.beets.maxTemp, tMin: result[i].tMin, tMax: result[i].tMax)
-            print(date)
+            
             // increment the date by 1 day
             var dateComponents = DateComponents()
             dateComponents.day = 1
@@ -197,25 +203,26 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     func getNormalsFromNOAA() {
         
-        if mainTempArray == nil {
-            APIManager.sharedInstance.fetchTemp() { result in
-                if result {
-                    self.fetchNormals()
-                    print(self.normals.count)
-                    self.calculateDegreeDays(result: self.normals)
-                    
-                    self.setUpSliders()
-                    self.updateLbls()
-                    self.slider2.layer.isHidden = false
-                    self.loadingView.layer.isHidden = true
-                }
+        APIManager.sharedInstance.fetchTemp() { result in
+            if result {
+                self.setEverythingUp()
             }
+            
         }
     }
     
-    func fetchNormals() {
+    func setEverythingUp() {
+    
+        self.fetchNormals()
+        print(self.normals.count)
+        self.calculateDegreeDays(result: self.normals)
         
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        self.setUpSliders()
+        self.updateLbls()
+        self.slider2.layer.isHidden = false
+        self.loadingView.layer.isHidden = true
+    }
+    func fetchNormals() {
 
         do {
             normals = try context.fetch(Normal.fetchRequest())
@@ -223,6 +230,33 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
             print("Save failed")
         }
     
+    }
+    
+    func recordsOfCurrentStationExist() -> Bool {
+        
+        var bool: Bool = false
+    
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Normal")
+        let predicate = NSPredicate(format: "date >= %@ AND date <= %@", dateFor.normalYearStart as NSDate, dateFor.normalYearEnd as NSDate)
+        request.predicate = predicate
+        //request.fetchLimit = 1
+        
+        do {
+            let count = try context.count(for: request)
+            if(count == 365){
+                bool = true
+            }
+            else {
+                bool = false
+            }
+        
+        }
+        
+        catch let error as NSError {
+            NSLog("Error fetching date entries from core data !!! \(error.localizedDescription)")
+        }
+
+        return bool
     }
     
    /* var fetchedResultsController: NSFetchedResultsController<Normal> {
