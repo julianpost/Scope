@@ -21,6 +21,54 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
     @IBOutlet weak var loadingView: UIView!
     @IBOutlet var slider2: UIXRangeSlider!
     
+    let defaults = UserDefaults.standard
+    
+    
+    @IBAction func favLocationsAlert() {
+        
+        let favLocations: [[String]] = defaults.object(forKey: "favLocations") as? [[String]] ?? [["New York", "GHCND:USW00094789"],["San Francisco", "GHCND:US1CASF0008"], ["Austin", "GHCND:USW00013904"], ["Chicago", "GHCND:USW00094892"], ["Miami", "GHCND:USW00092811"]]
+        
+        let alertController = UIAlertController(title: "Favorite Locations", message: "You can customize this list by clicking 'Edit favorites'", preferredStyle: .alert)
+        
+        let oneAction = UIAlertAction(title: favLocations[0][0], style: .default) { _ in
+            NOAARouter.currentStation = favLocations[0][1]
+            self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
+            self.checkForDataAndActAccordingly()
+        }
+        let twoAction = UIAlertAction(title: favLocations[1][0], style: .default) { _ in
+            NOAARouter.currentStation = favLocations[1][1]
+            self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
+            self.checkForDataAndActAccordingly()
+        }
+        let threeAction = UIAlertAction(title: favLocations[2][0], style: .default) { _ in
+            NOAARouter.currentStation = favLocations[2][1]
+            self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
+            self.checkForDataAndActAccordingly()
+        }
+        let fourAction = UIAlertAction(title: favLocations[3][0], style: .default) { _ in
+            NOAARouter.currentStation = favLocations[3][1]
+            self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
+            self.checkForDataAndActAccordingly()
+        }
+        let fiveAction = UIAlertAction(title: favLocations[4][0], style: .default) { _ in
+            NOAARouter.currentStation = favLocations[4][1]
+            self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
+            self.checkForDataAndActAccordingly()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in }
+        
+        alertController.addAction(oneAction)
+        alertController.addAction(twoAction)
+        alertController.addAction(threeAction)
+        alertController.addAction(fourAction)
+        alertController.addAction(fiveAction)
+        alertController.addAction(cancelAction)
+        //let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        //alertController.addAction(defaultAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
     var sliderCharacteristics = CharacteristicsOf()
     var ddArray: [Date:Float] = [:]
     var normals: [Normal] = []
@@ -43,12 +91,7 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         slider2.layer.isHidden = true
         updateLbls()
         
-        if recordsOfCurrentStationExist() {
-        setEverythingUp()
-        }
-        else {
-            getNormalsFromNOAA()
-        }
+        checkForDataAndActAccordingly()
         
     }
     
@@ -201,6 +244,17 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         
     }
 
+    
+    func checkForDataAndActAccordingly() {
+        
+        if recordsOfCurrentStationExist() {
+            setEverythingUp()
+        }
+        else {
+            getNormalsFromNOAA()
+        }
+    }
+    
     func getNormalsFromNOAA() {
         
         APIManager.sharedInstance.fetchTemp() { result in
@@ -237,7 +291,7 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         var bool: Bool = false
     
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Normal")
-        let predicate = NSPredicate(format: "date >= %@ AND date <= %@", dateFor.normalYearStart as NSDate, dateFor.normalYearEnd as NSDate)
+        let predicate = NSPredicate(format: "date >= %@ AND date <= %@ AND station == %@", dateFor.normalYearStart as NSDate, dateFor.normalYearEnd as NSDate, NOAARouter.currentStation)
         request.predicate = predicate
         //request.fetchLimit = 1
         

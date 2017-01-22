@@ -18,7 +18,9 @@ import Foundation
 import Alamofire
 
 enum NOAARouter: URLRequestConvertible {
+    
     static let baseURLString = "https://www.ncdc.noaa.gov/cdo-web/api/v2?"
+    static var currentStation: String = UserDefaults.standard.object(forKey: "currentStation") as? String ?? "GHCND:USW00014742"
     
     case getCurrentYearPrecip()
     case getNormalYearPrecip()
@@ -53,7 +55,7 @@ enum NOAARouter: URLRequestConvertible {
                 return ([
                 "datasetid" : "GHCND",
                 "datatypeid" : "PRCP",
-                "stationid" : "GHCND:USW00014742",
+                "stationid" : NOAARouter.currentStation,
                 "startdate" : dateFor.stringOfCurrentYearStart,
                 "enddate" : dateFor.stringOfCurrentYearEnd,
                 "units" : "standard",
@@ -63,7 +65,7 @@ enum NOAARouter: URLRequestConvertible {
                 return ([
                 "datasetid" : "NORMAL_DLY",
                 "datatypeid" : "YTD-PRCP-NORMAL",
-                "stationid" : "GHCND:USW00014742",
+                "stationid" : NOAARouter.currentStation,
                 "startdate" : dateFor.stringOfNormalYearStart,
                 "enddate" : dateFor.stringOfNormalYearEnd,
                 "units" : "standard",
@@ -73,7 +75,7 @@ enum NOAARouter: URLRequestConvertible {
                 return ([
                     "datasetid" : "GHCND",
                     "datatypeid" : "TMAX",
-                    "stationid" : "GHCND:USW00014742",
+                    "stationid" : NOAARouter.currentStation,
                     "startdate" : dateFor.stringOfCurrentYearStart,
                     "enddate" : dateFor.stringOfCurrentYearEnd,
                     "units" : "standard",
@@ -83,7 +85,7 @@ enum NOAARouter: URLRequestConvertible {
                 return ([
                     "datasetid" : "NORMAL_DLY",
                     "datatypeid" : "DLY-TMAX-NORMAL",
-                    "stationid" : "GHCND:USW00014742",
+                    "stationid" : NOAARouter.currentStation,
                     "startdate" : dateFor.stringOfNormalYearStart,
                     "enddate" : dateFor.stringOfNormalYearEnd,
                     "units" : "standard",
@@ -93,7 +95,7 @@ enum NOAARouter: URLRequestConvertible {
                 return ([
                     "datasetid" : "GHCND",
                     "datatypeid" : "TMIN",
-                    "stationid" : "GHCND:USW00014742",
+                    "stationid" : NOAARouter.currentStation,
                     "startdate" : dateFor.stringOfCurrentYearStart,
                     "enddate" : dateFor.stringOfCurrentYearEnd,
                     "units" : "standard",
@@ -103,7 +105,7 @@ enum NOAARouter: URLRequestConvertible {
                 return ([
                     "datasetid" : "NORMAL_DLY",
                     "datatypeid" : "DLY-TMIN-NORMAL",
-                    "stationid" : "GHCND:USW00014742",
+                    "stationid" : NOAARouter.currentStation,
                     "startdate" : dateFor.stringOfNormalYearStart,
                     "enddate" : dateFor.stringOfNormalYearEnd,
                     "units" : "standard",

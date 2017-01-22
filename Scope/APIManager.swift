@@ -51,6 +51,7 @@ class APIManager {
                         
                     let weatherRecord = Normal(context: context)
                         weatherRecord.date = start as NSDate
+                        weatherRecord.station = NOAARouter.currentStation
                         
                     if normalYearTMax[start] == nil {
                             weatherRecord.tMax = 0.0
