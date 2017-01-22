@@ -277,9 +277,12 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
         self.loadingView.layer.isHidden = true
     }
     func fetchNormals() {
+        
+        let normalFetchRequest = NSFetchRequest<Normal>(entityName: "Normal")
+        normalFetchRequest.predicate = NSPredicate(format: "station == %@", NOAARouter.currentStation)
 
         do {
-            normals = try context.fetch(Normal.fetchRequest())
+            normals = try context.fetch(normalFetchRequest)
         } catch {
             print("Save failed")
         }
