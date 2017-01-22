@@ -28,11 +28,12 @@ enum NOAARouter: URLRequestConvertible {
     case getNormalYearTMax()
     case getCurrentYearTMin()
     case getNormalYearTMin()
+    case getStationsWithNormals()
     
     func asURLRequest() throws -> URLRequest {
         var method: HTTPMethod {
             switch self {
-            case .getCurrentYearPrecip, .getNormalYearPrecip, .getCurrentYearTMax, .getNormalYearTMax, .getCurrentYearTMin, .getNormalYearTMin:
+            case .getCurrentYearPrecip, .getNormalYearPrecip, .getCurrentYearTMax, .getNormalYearTMax, .getCurrentYearTMin, .getNormalYearTMin, .getStationsWithNormals():
                 return .get
             }
         }
@@ -42,6 +43,9 @@ enum NOAARouter: URLRequestConvertible {
             switch self {
             case .getCurrentYearPrecip, .getNormalYearPrecip, .getCurrentYearTMax, .getNormalYearTMax, .getCurrentYearTMin, .getNormalYearTMin:
                 relativePath = "data"
+            case .getStationsWithNormals:
+                relativePath = "stations"
+                
             }
             
             var url = URL(string: NOAARouter.baseURLString)!
@@ -111,6 +115,13 @@ enum NOAARouter: URLRequestConvertible {
                     "units" : "standard",
                     "limit" : "365"
                 ])
+            case .getStationsWithNormals():
+                return ([
+                    "datasetid" : "NORMAL_DLY",
+                    "startdate" : dateFor.stringOfNormalYearStart,
+                    "enddate" : dateFor.stringOfNormalYearEnd,
+                    "limit" : "365"
+                    ])
             }
         }()
         

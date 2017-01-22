@@ -26,31 +26,41 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     @IBAction func favLocationsAlert() {
         
-        let favLocations: [[String]] = defaults.object(forKey: "favLocations") as? [[String]] ?? [["New York", "GHCND:USW00094789"],["San Francisco", "GHCND:US1CASF0008"], ["Austin", "GHCND:USW00013904"], ["Chicago", "GHCND:USW00094892"], ["Miami", "GHCND:USW00092811"]]
+        let favLocations: [[String]] = defaults.object(forKey: "favLocations") as? [[String]] ?? [["New York", "GHCND:USW00094789"],["San Francisco", "GHCND:USC00047767"], ["Austin", "GHCND:USW00013904"], ["Chicago", "GHCND:USW00094892"], ["Miami", "GHCND:USW00092811"]]
         
         let alertController = UIAlertController(title: "Favorite Locations", message: "You can customize this list by clicking 'Edit favorites'", preferredStyle: .alert)
         
         let oneAction = UIAlertAction(title: favLocations[0][0], style: .default) { _ in
+            self.loadingView.layer.isHidden = false
+            self.slider2.layer.isHidden = true
             NOAARouter.currentStation = favLocations[0][1]
             self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
             self.checkForDataAndActAccordingly()
         }
         let twoAction = UIAlertAction(title: favLocations[1][0], style: .default) { _ in
+            self.loadingView.layer.isHidden = false
+            self.slider2.layer.isHidden = true
             NOAARouter.currentStation = favLocations[1][1]
             self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
             self.checkForDataAndActAccordingly()
         }
         let threeAction = UIAlertAction(title: favLocations[2][0], style: .default) { _ in
+            self.loadingView.layer.isHidden = false
+            self.slider2.layer.isHidden = true
             NOAARouter.currentStation = favLocations[2][1]
             self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
             self.checkForDataAndActAccordingly()
         }
         let fourAction = UIAlertAction(title: favLocations[3][0], style: .default) { _ in
+            self.loadingView.layer.isHidden = false
+            self.slider2.layer.isHidden = true
             NOAARouter.currentStation = favLocations[3][1]
             self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
             self.checkForDataAndActAccordingly()
         }
         let fiveAction = UIAlertAction(title: favLocations[4][0], style: .default) { _ in
+            self.loadingView.layer.isHidden = false
+            self.slider2.layer.isHidden = true
             NOAARouter.currentStation = favLocations[4][1]
             self.defaults.set(NOAARouter.currentStation, forKey: "currentStation")
             self.checkForDataAndActAccordingly()
@@ -87,6 +97,13 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        APIManager.sharedInstance.fetchStations() { result in
+            if result {
+                print(result)
+            }
+            
+        }
         
         slider2.layer.isHidden = true
         updateLbls()
