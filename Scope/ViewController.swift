@@ -231,6 +231,14 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
             self.slider2.rightValue = earlyHarvestInt
             }
             
+            let lastPlantingDate = DateFunctions.intToDate(int: Int(lastPlantingInt))
+            let lastHarvestDate = self.findDaysToMaturity(date: lastPlantingDate, fromLeft: true)
+            let lastHarvestInt = DateFunctions.dateToInt(date: lastHarvestDate)
+            
+            if self.slider2.rightValue >= lastHarvestInt {
+            self.slider2.rightValue = lastHarvestInt
+            }
+            
             let rightDate = DateFunctions.intToDate(int: Int(self.slider2.rightValue))
             let leftDate = self.findDaysToMaturity(date: rightDate, fromLeft: false)
             self.slider2.leftValue = DateFunctions.dateToInt(date: leftDate)
@@ -241,6 +249,14 @@ class ViewController: UIViewController, NSFetchedResultsControllerDelegate {
            
             if self.slider2.leftValue >= lastPlantingInt {
                 self.slider2.leftValue = lastPlantingInt
+            }
+            
+            let earlyHarvestDate = DateFunctions.intToDate(int: Int(earlyHarvestInt))
+            let earlyPlantingDate = self.findDaysToMaturity(date: earlyHarvestDate, fromLeft: false)
+            let earlyPlantingInt = DateFunctions.dateToInt(date: earlyPlantingDate)
+            
+            if self.slider2.leftValue <= earlyPlantingInt {
+                self.slider2.leftValue = earlyPlantingInt
             }
             
             let leftDate = DateFunctions.intToDate(int: Int(self.slider2.leftValue))
