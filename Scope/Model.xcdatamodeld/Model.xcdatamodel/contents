@@ -6,7 +6,7 @@
         <attribute name="tMax" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="tMin" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
-    <entity name="Station" representedClassName="Station" syncable="YES" codeGenerationType="class">
+    <entity name="Station" representedClassName=".Station" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lat" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="lon" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>

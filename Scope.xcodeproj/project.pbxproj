@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3D59C4CDF47A4BB1D9A9685D /* Pods_Scope.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F64D6EAF8CD4F017899622 /* Pods_Scope.framework */; };
+		E8401DCD1E395D9A0073285F /* StationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8401DCC1E395D9A0073285F /* StationTableViewController.swift */; };
+		E8401DCF1E39614F0073285F /* StationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8401DCE1E39614F0073285F /* StationCell.swift */; };
 		E847E1141E267B1600337EE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847E1131E267B1600337EE3 /* AppDelegate.swift */; };
 		E847E1161E267B1600337EE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E847E1151E267B1600337EE3 /* ViewController.swift */; };
 		E847E1191E267B1600337EE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E847E1171E267B1600337EE3 /* Main.storyboard */; };
@@ -28,6 +30,8 @@
 		4EEE321CF20E5DA54E0CF9D0 /* Pods-Scope.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scope.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Scope/Pods-Scope.debug.xcconfig"; sourceTree = "<group>"; };
 		91F64D6EAF8CD4F017899622 /* Pods_Scope.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Scope.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		966755A55CAAD3913BA0EE8D /* Pods-Scope.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Scope.release.xcconfig"; path = "Pods/Target Support Files/Pods-Scope/Pods-Scope.release.xcconfig"; sourceTree = "<group>"; };
+		E8401DCC1E395D9A0073285F /* StationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationTableViewController.swift; sourceTree = "<group>"; };
+		E8401DCE1E39614F0073285F /* StationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StationCell.swift; sourceTree = "<group>"; };
 		E847E1101E267B1500337EE3 /* Scope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E847E1131E267B1600337EE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E847E1151E267B1600337EE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -113,6 +117,8 @@
 			isa = PBXGroup;
 			children = (
 				E847E1151E267B1600337EE3 /* ViewController.swift */,
+				E8401DCC1E395D9A0073285F /* StationTableViewController.swift */,
+				E8401DCE1E39614F0073285F /* StationCell.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -267,9 +273,11 @@
 				E847E12D1E268B8200337EE3 /* NOAATempArrays.swift in Sources */,
 				E847E1351E268FCE00337EE3 /* CropCharacteristics.swift in Sources */,
 				E847E12E1E268B8200337EE3 /* DateHandler.swift in Sources */,
+				E8401DCD1E395D9A0073285F /* StationTableViewController.swift in Sources */,
 				E847E1301E268B8200337EE3 /* ArrayCalculations.swift in Sources */,
 				E847E1261E268AF200337EE3 /* SliderDosThumbs.swift in Sources */,
 				E847E1141E267B1600337EE3 /* AppDelegate.swift in Sources */,
+				E8401DCF1E39614F0073285F /* StationCell.swift in Sources */,
 				E847E12C1E268B8200337EE3 /* NOAARouter.swift in Sources */,
 				E847E12F1E268B8200337EE3 /* APIManager.swift in Sources */,
 				E896D7421E2FC4AB008EA40C /* Model.xcdatamodeld in Sources */,

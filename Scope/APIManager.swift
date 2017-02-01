@@ -108,23 +108,27 @@ class APIManager {
             .responseJSON { response in
                 if let values = self.nOAAStationArrayFromResponse(response: response).value {
                     stationsArray = values
+                    
+                    for i in stationsArray {
+                        
+                        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+                        
+                        let stationRecord = Station(context: context)
+                        stationRecord.id = i[0]
+                        stationRecord.name = i[1]
+                        stationRecord.lat = Float(i[2])!
+                        stationRecord.lon = Float(i[3])!
+                        
+                        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+                        
+                       // print("saved station with name \(stationRecord.name)")
+                    }
+                    
+                    completionHandler(true)
                 }
         }
         
-        for i in stationsArray {
-            
-            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-            
-            let stationRecord = Station(context: context)
-            stationRecord.id = i[0]
-            stationRecord.name = i[1]
-            stationRecord.lat = Float(i[2])!
-            stationRecord.lon = Float(i[3])!
-            
-            (UIApplication.shared.delegate as! AppDelegate).saveContext()
-        }
         
-        completionHandler(true)
     }
     
     private func nOAAArrayFromResponse(response: DataResponse<Any>) -> Result<[Date : Float]> {
